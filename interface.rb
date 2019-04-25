@@ -10,7 +10,7 @@ class Interface
 
   def input_code
     puts 'Пожалуйста ведите код товара через пробел'
-    @input_code = gets.chomp.downcase.split(" ")
+    @input_code = gets.chomp.downcase.split(' ')
   end
 
   def welcome

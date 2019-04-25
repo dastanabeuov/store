@@ -1,39 +1,35 @@
 # Basic logic (policy) of calculation
 
 class Formula
-  STORE = { 'CC' => 1.50, 'PC' => 2.00, 'WA' => 0.85 }
+  attr_accessor :results
 
   def initialize(interface)
     @interface = interface
   end
 
   def accept_process(codes)
-    result = {}
-    codes.uniq.each{|element| result[element] = codes.count(element)}
-    calculate(result)
+    @results = {}
+    codes.uniq.each { |element| @results[element] = codes.count(element) }
+    calculate(@results)
   end
 
-  private
-
-  def calculate(items)
-    items.each do |item|
-      case item
-      when 'CC'
-        name = "Coca-Cola"
-        count = items['CC']
+  def calculate(results)
+    results.each do |key, value|
+      case key
+      when 'cc'
+        name = 'Coca-Cola'
+        count = value
         if count >= 1
           mount = count * 1.50
-          count = count + count
+          count += count
           @interface.total(mount, count, name)
-        else
-          nil
         end
-      when 'PC'
-        name = "Papci-Cola"
-        count = items[PC]
+      when 'pc'
+        name = 'Pepsi-Cola'
+        count = value
         if count >= 3
           count = count
-          mount = count * 100 / 20
+          mount = 2.0 * count * 100 / 80
           @interface.total(mount, count, name)
         else
           count = count
