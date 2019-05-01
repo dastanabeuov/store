@@ -10,9 +10,19 @@ class Store
     @interface.welcome
     @interface.info
     @interface.admission_rules
+    run
+  end    
+
+  private
+
+  def run
     codes = @interface.input_code
     accept(codes)
     new_action
+  end
+
+  def accept(codes)
+    @formula.accept_process(codes)
   end
 
   def new_action
@@ -20,13 +30,7 @@ class Store
     if answer == 'y'
       start
     else
-      exit
+      @interface.end
     end
-  end
-
-  private
-
-  def accept(codes)
-    @formula.accept_process(codes)
-  end
+  end  
 end
